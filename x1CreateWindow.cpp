@@ -21,22 +21,6 @@ void processInput(GLFWwindow* window) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 int main() {
 	glfwInit();
 	//To tell GLFW that OpenGL version(3) we want to use.
@@ -63,15 +47,7 @@ int main() {
 		return -1;
 	}
 	//GLAD functions for load the address of the OpenGL function pointers which is OS-specific.
-	//GLFW gives us address(glfwGeoProc--) the defines the correct function based on which OS we're comiling for.
-
-
-
-
-
-
-
-
+	//GLFW gives us address(glfwGeoProc--) the defines the correct function based on which OS we're comiling for
 
 
 	float vertics[] = {
@@ -87,11 +63,6 @@ int main() {
 
 	unsigned int vertexShader;
 	vertexShader = glCreateShader(GL_VERTEX_SHADER);
-
-
-
-
-
 
 
 
