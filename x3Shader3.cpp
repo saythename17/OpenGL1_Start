@@ -12,25 +12,6 @@ void window_size_change(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height);
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////// 
-const char *vertexShaderCode = "#version 410 core\n"
-			"layout (location = 0) in vec3 aPos;\n" //the position variable has attribite position 0
-			"layout (location = 1) in vec3 aColor;\n" //the color variable has attribute position 1
-			"out vec3 myColor;\n" //output a color to the fragment shader
-			"void main(){"
-			"	gl_Position = vec4(aPos, 1.0);"
-			"	myColor = aColor; }\0"; //set myColor to the input color we got from the vertex data
-const char* fragmentShaderCode = "#version 410 core\n"
-			"out vec4 FragColor;\n"
-			"in vec3 myColor;\n"
-			"void main() {" 
-			"	FragColor = vec4(myColor, 1.0); }\0"; 
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
 
 
 int main() {
@@ -59,11 +40,6 @@ int main() {
 	//shader program
 	Shader myShader= Shader();
 
-
-
-	/////////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////
-	//set up vertex data(and buffer) and configure vertex attributes
 	float vertices[] = {
 		// positions         // colors
 		 0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // bottom right
@@ -83,16 +59,7 @@ int main() {
 	glEnableVertexAttribArray(0);
 	//color attribute
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-	/*parameter
-	5 : stride (have to move 6 floats to the right-6 times the size of a float) 
-	6 : offset- color attribute starts after the position data (after 3 float values)*/
 	glEnableVertexAttribArray(1);
-	/////////////////////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////////
-
-
-
-
 
 
 	//render loop
@@ -116,8 +83,6 @@ int main() {
 	}
 
 	
-
-
 
 	//optional - de-allocate all resource once they've outlived their purpose
 	glDeleteVertexArrays(1, &VAO);
