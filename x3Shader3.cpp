@@ -13,7 +13,6 @@ void window_size_change(GLFWwindow* window, int width, int height) {
 }
 
 
-
 int main() {
 	//initialize and configue
 	glfwInit();
@@ -40,6 +39,7 @@ int main() {
 	//shader program
 	Shader myShader= Shader();
 
+	//set up vertex data(and buffer) and configure vertex attributes
 	float vertices[] = {
 		// positions         // colors
 		 0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // bottom right
@@ -62,6 +62,7 @@ int main() {
 	glEnableVertexAttribArray(1);
 
 
+
 	//render loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -74,6 +75,9 @@ int main() {
 
 		//render a triangle
 		myShader.use();
+		myShader.setFloat("xPos", .5f);
+		
+
 		glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 
@@ -83,6 +87,8 @@ int main() {
 	}
 
 	
+
+
 
 	//optional - de-allocate all resource once they've outlived their purpose
 	glDeleteVertexArrays(1, &VAO);
