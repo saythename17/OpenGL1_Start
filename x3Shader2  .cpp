@@ -112,7 +112,6 @@ int main() {
 	unsigned int VBO, VAO;
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
-	
 	glBindVertexArray(VAO);//bind the VAO(vertex array object) first. 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);//set vertex buffer
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
@@ -126,15 +125,11 @@ int main() {
 	5 : stride (have to move 6 floats to the right-6 times the size of a float) 
 	6 : offset- color attribute starts after the position data (after 3 float values)*/
 	glEnableVertexAttribArray(1);
+
+	//aswe only have a single shader. we could also just activate our shader once beforehand if we want to 
+	glUseProgram(shaderProgram);
 	/////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////
-
-
-	/*I can unbind the VAO afterwards so ther VAO calls won't accidentally modify this VAO,
-	but this rarely happens. 
-	Modifying other VAOs requires a call to glBindVertesArray anyways so we generally don't unbind VAOs (nor VBOs)
-	when it's not directly necessary.*/
-	//glBindVertexArray(VAO);
 
 
 
@@ -152,15 +147,9 @@ int main() {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 
-		///////////////////////////////////////////////////////////////
-		//be sure to activate the shader before any calls to glUniform
-		glUseProgram(shaderProgram);
-		//p.s : finding the uniform location does not reaquire you to use shader program(by glUseProgram) first, 
-		//		but updating a uniform does require you to first calling glUseProgram.
-
-
 
 		//render a triangle
+		glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 
 		//glfw : swap buffer and poll event (key pressed/release, mouse moved etc..)
