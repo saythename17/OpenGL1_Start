@@ -32,7 +32,6 @@ const char* fragmentShaderCode = "#version 410 core\n"
 
 
 
-
 int main() {
 	//initialize and configue
 	glfwInit();
