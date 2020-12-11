@@ -25,8 +25,9 @@ public:
 			"layout (location = 0) in vec3 aPos;\n" //the position variable has attribite position 0
 			"layout (location = 1) in vec3 aColor;\n" //the color variable has attribute position 1
 			"out vec3 myColor;\n" //output a color to the fragment shader
+			"uniform float xPos;\n"
 			"void main(){"
-			"	gl_Position = vec4(aPos, 1.0);"
+			"	gl_Position = vec4(aPos.x + xPos, -aPos.y, aPos.z, 1.0);"
 			"	myColor = aColor; }\0"; //set myColor to the input color we got from the vertex data
 		const char *fragmentShaderCode = "#version 410 core\n"
 			"out vec4 FragColor;\n"
@@ -65,14 +66,14 @@ public:
 	}
 	//utility uniform functions 
 	//check a uniform location and set its value
-	void setBool(const std::string& name, bool value) const {
+	void setBool(const std::string &name, bool value) const {
 		glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value);
 	}
-	void setInt(const std::string& name, int value) const {
+	void setInt(const std::string &name, int value) const {
 		glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
 	}
-	void setFloat(const std::string& name, GLint value) const {
-		glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
+	void setFloat(const std::string &name, float value) const {
+		glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
 	}
 
 
