@@ -139,6 +139,10 @@ int main() {
 	data = stbi_load("Vroadway_White_Large.png", &width, &height, &nChannels, 0);
 	if (data)
 	{
+		//!!!
+		//glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		//└not obvious from documentation but by default only images with multiple of 4 bytes per row will load correctly
+		// so add this command line when your image is loaded incorrectly.
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
