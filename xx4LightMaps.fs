@@ -43,3 +43,4 @@
 			//"	FragColor = mix(texture(texture1, TexCoord), texture(texture2, TexCoord), 0.7);"
 			"   FragColor *= vec4(ambient + diffuse + specular, 1.0);"
 			"}\0";
+			
