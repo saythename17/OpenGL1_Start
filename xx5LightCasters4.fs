@@ -36,18 +36,13 @@
 			"   vec3 emission = texture(emission, TexCoord).rgb * show;"
 			"   FragColor +=  vec4(emission, 1.0);"
 			/**/
-			"	if(theta > light.cutOff) {"
-					// attenuation
-					"   float distance = length(light.position - FragPos);"
-					"   float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));"
+			"	if(theta < light.cutOff) {"
 					// ambient
 					"   vec3 ambient = light.ambient * material.ambient;"
-					"   ambient *= attenuation;"
 					// diffuse
 					"   vec3 normal = normalize(Normal);"
 					"	float diff = max(dot(normal, lightDir), 0.0);"
 					"   vec3 diffuse = light.diffuse * (diff * material.diffuse);"
-					"   diffuse *= attenuation;"
 					//specular
 					"   vec3 viewDir = normalize(viewPos - FragPos);"
 					"   vec3 reflectDir = reflect(-lightDir, normal);"
@@ -57,8 +52,12 @@
 					* when we calculated the lightDir vector)*/
 					"   float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);"
 					"   vec3 specular = light.specular * spec * vec3(texture(texture2, TexCoord));"
+					// attenuation
+					"   float distance = length(light.position - FragPos);"
+					"   float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));"
+					"   diffuse *= attenuation;"
 					"   specular *= attenuation;"	
 					"   FragColor *= vec4(ambient + diffuse + specular, 1.0);"
 			"	}"
-			"   else FragColor *= vec4(light.ambient, 1.0);"
+			"   else FragColor *= vec4(light.ambient * material.ambient, 1.0);"
 			"}\0";
